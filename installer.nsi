@@ -15,7 +15,14 @@
 !define /file VERSION "boost-build-${ARCH}/version.txt"
 Name "Boost.Build ${VERSION}"
 OutFile "setup-${ARCH}.exe"
-InstallDir "$PROGRAMFILES64\boost-build"
+
+!if ${ARCH} == "i386"
+  InstallDir "$PROGRAMFILES32\boost-build"
+!else if ${ARCH} == "amd64"
+  InstallDir "$PROGRAMFILES64\boost-build"
+!else
+  !error "ARCH is not defined to either i386 or amd64"
+!endif
 
 ;--------------------------------
 ;Interface Settings
